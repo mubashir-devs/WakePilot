@@ -1,0 +1,39 @@
+# WakePilot configuration. Copy to ./config.yaml (or pass -config path).
+# Unknown keys are rejected. Durations use Go syntax: 500ms, 5s, 2m.
+
+server:
+  # Loopback by default: only this machine can reach the app.
+  # Binding to any other address REQUIRES auth.enabled with a token.
+  host: 127.0.0.1
+  port: 8080
+  # Optional Host-header allow-list (DNS-rebinding protection). Defaults to
+  # localhost names when bound to loopback.
+  allowed_hosts: []
+
+auth:
+  enabled: false
+  # Prefer the WAKEPILOT_AUTH_TOKEN environment variable. Min 16 characters.
+  # Generate one with: openssl rand -hex 24
+  token: ""
+
+database:
+  path: wakepilot.db      # override with WAKEPILOT_DB
+
+wol:
+  default_port: 9
+  default_interface: ""   # used when a device has no interface and no broadcast address
+  send_timeout: 5s
+  verify_enabled: true    # after a wake, probe the device and record whether it responds
+  verify_timeout: 90s
+  verify_interval: 3s
+
+monitor:
+  enabled: true
+  interval: 30s
+  probe_timeout: 1500ms
+  # TCP ports probed. A connection OR an active refusal counts as "reachable".
+  ports: [22, 80, 135, 139, 443, 445, 3389, 5900]
+
+logging:
+  level: info             # debug | info | warn | error
+  format: text            # text | json

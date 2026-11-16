@@ -1,0 +1,9 @@
+node_modules/
+frontend/dist/*
+!frontend/dist/.gitkeep
+bin/
+*.db
+*.db-wal
+*.db-shm
+/config.yaml
+dist-bin/
